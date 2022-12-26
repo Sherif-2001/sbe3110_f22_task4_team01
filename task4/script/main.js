@@ -1,35 +1,27 @@
-let FirstImageInput = document.querySelector("#FirstImageInput");
-let SecondImageInput = document.querySelector("#SecondImageInput");
-let FirstImage = document.querySelector(".FirstImage");
-let FirstImageBtn = document.querySelector(".FirstImageBtn");
-let SecondImageBtn = document.querySelector(".SecondImageBtn");
-let SecondImage = document.querySelector(".SecondImage");
+let FirstImageInput = document.getElementById("FirstImageInput");
+let SecondImageInput = document.getElementById("SecondImageInput");
+let FirstImage = document.getElementById("FirstImage");
+let FirstImageBtn = document.getElementById("FirstImageBtn");
+let SecondImageBtn = document.getElementById("SecondImageBtn");
+let SecondImage = document.getElementById("SecondImage");
 var path = "";
-
-// upload image 
-function upload_image_action(image,button) {
-  image.style.display = `flex`;
-  button.style.display = `none`;
-}
 
 FirstImageInput.addEventListener("change", function () {
   let reader = new FileReader();
-  FirstImage.style.display = `flex`;
   reader.addEventListener("load", () => {
-    path = reader.result;
-    FirstImage.src = `${path}`;
-    upload_image_action(FirstImage,FirstImageBtn);
+    FirstImage.src = reader.result;
+    FirstImage.style.display = `flex`;
   });
   reader.readAsDataURL(this.files[0]);
+  FirstImageInput.removeEventListener();
 });
 
-SecondImageInput.addEventListener("change", function () {
+SecondImageInput.addEventListener("change", function (){
   let reader = new FileReader();
-  SecondImage.style.display = `flex`;
   reader.addEventListener("load", () => {
-    path = reader.result;
-    SecondImage.src = `${path}`;
-    upload_image_action(SecondImage,SecondImageBtn);
+    SecondImage.src = reader.result;
+    SecondImage.style.display = `flex`;
   });
   reader.readAsDataURL(this.files[0]);
-});
+}
+);
