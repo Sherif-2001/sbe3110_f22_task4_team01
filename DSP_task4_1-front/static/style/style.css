@@ -1,0 +1,77 @@
+* {
+  padding: 0px;
+  margin: 5px;
+  gap: 1%;
+  padding-left: 5px;
+  padding-top: 3px;
+}
+
+body {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  /* flex-direction: row; */
+  /* flex-wrap: wrap; */
+  height: 90vh;
+  justify-content: left;
+  /* align-items: center; */
+  gap: 2%;
+  background-color: rgb(243, 248, 247);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 50%;
+}
+
+.containerLabel {
+  padding: 0px 8px;
+  border-radius: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  /* background-color:rgba(132,150,173,0.18) ; */
+  background-color: rgba(76, 148, 243, 0.3);
+  color: rgb(0, 0, 0);
+}
+
+.imageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 2px;
+  border: 1px;
+  border-radius: 5%;
+  border-style: dashed;
+  border-color: rgba(0, 0, 0, 0);
+  background-color: rgb(25, 5, 97);
+}
+.ImageBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  font-size: 20px;
+  font-weight: bold;
+  color: #fff;
+  background-color: rgb(60, 43, 200); /*   rgb(138, 43, 226);*/
+  padding: 8px;
+  border-radius: 20px;
+}
+
+.ImageBtn:hover {
+  background-color: rgb(25, 5, 97); /* rgba(138, 43, 226)*/
+  cursor: pointer;
+}
+
+.Image {
+  display: none;
+  height: 100%;
+  width: 100%;
+  border-radius: 5%;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
