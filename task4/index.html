@@ -11,64 +11,70 @@
 
 <body>
   <!-- ------------------------------------------------------------------------ -->
-  <div class="container">
-    <label class="containerLabel">First image</label>
-    <div class="imageContainer">
-      <img id="FirstImage" class="Image" />
+  <div style="width: 25%;">
+    <div class="container">
+      <label class="containerLabel">First image</label>
+      <div class="imageContainer">
+        <img id="FirstImage" class="Image" />
+      </div>
     </div>
-    <input id="FirstImageInput" type="file" accept="image/*" style="display: none" />
-    <label for="FirstImageInput" id="FirstImageBtn" class="ImageBtn">Upload</label>
+
+    <!-- ------------------------------------------------------------------------ -->
+    <div class="container">
+      <label class="containerLabel">Second image</label>
+      <div class="imageContainer">
+        <img id="SecondImage" class="Image" />
+      </div>
+    </div>
   </div>
 
   <!-- ------------------------------------------------------------------------ -->
-  <div class="container">
-    <label class="containerLabel">Tools Box</label>
+  <div class="toolsBox" style="width: 25%;">
     <div class="imageContainer">
+      <input id="FirstImageInput" type="file" accept="image/*" style="display: none" />
+      <label for="FirstImageInput" id="FirstImageBtn" class="ImageBtn">Upload Image 1</label>
+      <div style="color: white;">
+        <p> Image Shown:</p>
+        <input type="radio" id="Original" name="FirstImageTools" value="Original" checked>
+        <label for="Original">Original</label><br>
+        <input type="radio" id="Phase" name="FirstImageTools" value="Phase">
+        <label for="Phase">Phase</label><br>
+        <input type="radio" id="Magnitude" name="FirstImageTools" value="Magnitude">
+        <label for="Magnitude">Magnitude</label>
+      </div>
     </div>
+    <!-- ------------------------------------------------------------------------ -->
+
+    <div class="imageContainer">
+      <input id="MixInput" type="file" accept="image/*" style="display: none" />
+      <label for="MixInput" id="MixBtn" class="ImageBtn">Mix It</label>
+    </div>
+    <!-- ------------------------------------------------------------------------ -->
+
+    <div class="imageContainer">
+      <input id="SecondImageInput" type="file" accept="image/*" style="display: none" />
+      <label for="SecondImageInput" id="SecondImageBtn" class="ImageBtn">Upload Image 2</label>
+      <div style="color: white;">
+        <p>Image Shown:</p>
+        <input type="radio" id="Original" name="SecondImageTools" value="Original" checked>
+        <label for="Original">Original</label><br>
+        <input type="radio" id="Phase" name="SecondImageTools" value="Phase">
+        <label for="Phase">Phase</label><br>
+        <input type="radio" id="Magnitude" name="SecondImageTools" value="Magnitude">
+        <label for="Magnitude">Magnitude</label>
+      </div>
+    </div>
+
   </div>
 
   <!-- ------------------------------------------------------------------------ -->
-  <div class="container">
+  <div class="mixedContainer">
     <label class="containerLabel">Mixed image</label>
     <div class="imageContainer">
       <img class="SecondImage" />
     </div>
   </div>
 
-  <!-- ------------------------------------------------------------------------ -->
-  <div class="container">
-    <label class="containerLabel">Second image</label>
-    <div class="imageContainer">
-      <img id="SecondImage" class="Image" />
-    </div>
-    <input id="SecondImageInput" type="file" accept="image/*" style="display: none" />
-    <label for="SecondImageInput" id="SecondImageBtn" class="ImageBtn">Upload</label>
-  </div>
-
-  <!-- <div class="container">
-    <label class="containerLabel">First Fourier</label>
-    <div class="imageContainer">
-      <img class="Image" />
-    </div>
-  </div>
-
-  <div class="container">
-    <div>
-      <label class="containerLabel">Second Fourier</label>
-    </div>
-    <div class="imageContainer">
-      <img class="Image" />
-    </div>
-  </div>
-
-  <div class="container">
-    <div>
-      <label class="containerLabel">Mixed Fourier</label>
-    </div>
-    <div class="imageContainer">
-      <img class="Image" />
-    </div>
-  </div> -->
 
   <script src="script/main.js"></script>
 </body>
