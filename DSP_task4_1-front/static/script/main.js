@@ -12,6 +12,7 @@ let MixedImage = document.getElementById("MixedImage");
 let FirstTools = document.getElementsByName("FirstImageTools");
 let SecondTools = document.getElementsByName("SecondImageTools");
 
+form = document.getElementById("SubmitForm");
 
 FirstImageInput.addEventListener("change", function () {
   let reader = new FileReader();
@@ -60,15 +61,20 @@ for (radio in SecondTools) {
 }
 
 MixButton.addEventListener("click", function () {
-  if (FirstTools.value == "Magnitude" && SecondTools.value == "Magnitude") {
+
+  if (FirstTools[2].checked && SecondTools[2].checked) {
     MixedImage.src = "../static/images/image_mixed_mag2_mag1.png";
-  } else if (FirstTools.value == "Magnitude" && SecondTools.value == "Phase") {
+  } else if (FirstTools[2].checked && SecondTools[1].checked) {
     MixedImage.src = "../static/images/image_mixed_mag1_p2.png";
-  } else if (FirstTools.value == "Phase" && SecondTools.value == "Magnitude") {
+  } else if (FirstTools[1].checked && SecondTools[2].checked) {
     MixedImage.src = "../static/images/image_mixed_mag2_p1.png";
-  } else if (FirstTools.value == "Phase" && SecondTools.value == "Phase") {
+  } else if (FirstTools[1].checked && SecondTools[1].checked) {
     MixedImage.src = "../static/images/image_mixed_p1_p2.png";
   } else {
     MixedImage.src = "../static/images/image_mixed_mag2_mag1.png";
   }
+});
+
+form.addEventListener('submit', function (event) {
+  event.preventDefault();    // prevent page from refreshing
 });
