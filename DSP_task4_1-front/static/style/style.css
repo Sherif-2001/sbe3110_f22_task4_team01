@@ -7,19 +7,16 @@
 }
 
 body {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  /* flex-direction: row; */
-  /* flex-wrap: wrap; */
-  height: 90vh;
-  justify-content: left;
-  /* align-items: center; */
-  gap: 2%;
-  background-color: rgb(243, 248, 247);
+  display: flex;
+  flex-direction: row;
+  height: 95vh;
+  background-color: white;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .container {
   display: flex;
+  flex: 1;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -29,26 +26,23 @@ body {
 .containerLabel {
   padding: 0px 8px;
   border-radius: 20px;
-  font-size: 24px;
+  font-size: 30px;
   font-weight: bold;
-  /* background-color:rgba(132,150,173,0.18) ; */
   background-color: rgba(76, 148, 243, 0.3);
-  color: rgb(0, 0, 0);
+  color: black;
 }
 
 .imageContainer {
   display: flex;
+  flex: 1;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 100%;
-  padding: 2px;
-  border: 1px;
   border-radius: 5%;
-  border-style: dashed;
-  border-color: rgba(0, 0, 0, 0);
   background-color: rgb(25, 5, 97);
 }
+
 .ImageBtn {
   display: flex;
   align-items: center;
@@ -63,15 +57,56 @@ body {
 }
 
 .ImageBtn:hover {
-  background-color: rgb(25, 5, 97); /* rgba(138, 43, 226)*/
+  opacity: 60%;
   cursor: pointer;
 }
 
 .Image {
   display: none;
-  height: 100%;
   width: 100%;
+  height: 100%;
   border-radius: 5%;
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
+  object-fit: contain;
+}
+
+input[type="radio"]:checked{
+  position: relative;
+  top: 5px;
+  margin: 0 5px 0 0;
+  width: 20px;
+  height: 20px;
+  accent-color: rgb(60, 43, 200);
+  }
+
+.toolsBox{
+    display: flex;
+    flex-direction: column;
+  }
+
+.mixedContainer{
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.MixButton{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  font-size: 20px;
+  font-weight: bold;
+  color: #fff;
+  background-color: rgb(60, 43, 200); /*   rgb(138, 43, 226);*/
+  padding: 8px;
+  border: none;
+  border-radius: 20px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.MixButton:hover{
+  opacity: 60%;
+  cursor: pointer;
 }

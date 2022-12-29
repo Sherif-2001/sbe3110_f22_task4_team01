@@ -9,80 +9,77 @@
   <link rel="stylesheet" href="../static/style/style.css" />
 </head>
 
-<body>
-  <!-- ------------------------------------------------------------------------ -->
-  <form action="http://127.0.0.1:10000/" method="post" enctype="multipart/form-data" >
-    <div class="container">
-      <label class="containerLabel">First image</label>
-      <div class="imageContainer">
-        <img id="FirstImage" class="Image" />
+<form style="display: flex; flex: 1;" action="http://127.0.0.1:10000/" id="SubmitForm" method="post"
+  enctype="multipart/form-data">
+
+  <body>
+    <!-- ------------------------ The First Image Container ----------------------- -->
+    <div style="width: 25%; display: flex; flex-direction: column;">
+      <div class="container">
+        <label class="containerLabel">First image</label>
+        <div class="imageContainer">
+          <img id="FirstImage" class="Image" />
+        </div>
       </div>
-      <input id="FirstImageInput" name="profile_pic" type="file" accept="image/*" style="display: none" />
-      <label for="FirstImageInput" id="FirstImageBtn" class="ImageBtn">Upload</label>
-    </div>
-    <div class="container">
-      <label class="containerLabel">Second image</label>
-      <div class="imageContainer">
-        <img id="SecondImage" class="Image" />
+
+      <!-- ------------------------ The Second Image Container ---------------------- -->
+      <div class="container">
+        <label class="containerLabel">Second image</label>
+        <div class="imageContainer">
+          <img id="SecondImage" class="Image" />
+        </div>
       </div>
-      <input id="SecondImageInput" name="profile_pic2" type="file" accept="image/*" style="display: none" />
-      <label for="SecondImageInput" id="SecondImageBtn" class="ImageBtn">Upload</label>
     </div>
-    <button type="submit" class="mix">Mix Images</button>
-  </form>
 
+    <!-- ------------------------ The First Image Tools ----------------------- -->
+    <div class="toolsBox" style="width: 25%;">
+      <div class="imageContainer">
+        <input id="FirstImageInput" name="input1" type="file" accept="image/*" style="display: none" />
+        <label for="FirstImageInput" id="FirstImageBtn" class="ImageBtn">Upload Image 1</label>
+        <div style="color: white;">
+          <p> Image Shown:</p>
+          <input type="radio" id="Original" name="FirstImageTools" value="Original" checked>
+          <label for="Original">Original</label><br>
+          <input type="radio" id="Phase" name="FirstImageTools" value="Phase">
+          <label for="Phase">Phase</label><br>
+          <input type="radio" id="Magnitude" name="FirstImageTools" value="Magnitude">
+          <label for="Magnitude">Magnitude</label>
+        </div>
+      </div>
+      <!-- ------------------------ The Mix Button ----------------------------- -->
 
-  <!-- ------------------------------------------------------------------------ -->
-  <div class="container">
-    <label class="containerLabel">Tools Box</label>
-    <div class="imageContainer">
-    </div>
-  </div>
+      <div class="imageContainer">
+        <button type="submit" form="SubmitForm" id="MixButton" class="MixButton">Mix Images</button>
+      </div>
+      <!-- ------------------------ The Second Image Tools ----------------------- -->
 
-  <!-- ------------------------------------------------------------------------ -->
-  <div class="container">
-    <label class="containerLabel">Mixed image</label>
-    <div class="imageContainer">
-      <img class="SecondImage" />
-    </div>
-  </div>
+      <div class="imageContainer">
+        <input id="SecondImageInput" name="input2" type="file" accept="image/*" style="display: none" />
+        <label for="SecondImageInput" id="SecondImageBtn" class="ImageBtn">Upload Image 2</label>
+        <div style="color: white;">
+          <p>Image Shown:</p>
+          <input type="radio" id="Original" name="SecondImageTools" value="Original" checked>
+          <label for="Original">Original</label><br>
+          <input type="radio" id="Phase" name="SecondImageTools" value="Phase">
+          <label for="Phase">Phase</label><br>
+          <input type="radio" id="Magnitude" name="SecondImageTools" value="Magnitude">
+          <label for="Magnitude">Magnitude</label>
+        </div>
+      </div>
 
-  <!-- ------------------------------------------------------------------------ -->
-  <!-- <div class="container">
-    <label class="containerLabel">Second image</label>
-    <div class="imageContainer">
-      <img id="SecondImage" class="Image" />
     </div>
-    <input id="SecondImageInput" type="file" accept="image/*" style="display: none" />
-    <label for="SecondImageInput" id="SecondImageBtn" class="ImageBtn">Upload</label>
-  </div> -->
 
-  <!-- <div class="container">
-    <label class="containerLabel">First Fourier</label>
-    <div class="imageContainer">
-      <img class="Image" />
+    <!-- ----------------------- The Mixed Image Container -------------------- -->
+    <div class="mixedContainer">
+      <label class="containerLabel">Mixed image</label>
+      <div class="imageContainer">
+        <img id="MixedImage" class="Image" />
+      </div>
     </div>
-  </div>
 
-  <div class="container">
-    <div>
-      <label class="containerLabel">Second Fourier</label>
-    </div>
-    <div class="imageContainer">
-      <img class="Image" />
-    </div>
-  </div>
+  </body>
+</form>
 
-  <div class="container">
-    <div>
-      <label class="containerLabel">Mixed Fourier</label>
-    </div>
-    <div class="imageContainer">
-      <img class="Image" />
-    </div>
-  </div> -->
-
-  <script src="../static/script/main.js"></script>
-</body>
+<script src="../static/script/main.js"></script>
 
 </html>

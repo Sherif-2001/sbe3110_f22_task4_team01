@@ -15,10 +15,10 @@ def home():
 @app.route('/', methods=['GET', 'POST'])
 def upload():
     if request.method=="POST":
-        image1= request.files["profile_pic"]
+        image1= request.files["input1"]
         path_1 ="DSP_task4_1-front/static/images/image1.png"
         image1.save(path_1)
-        image2= request.files["profile_pic2"]
+        image2= request.files["input2"]
         path_2 ="DSP_task4_1-front/static/images/image2.png"
         image2.save(path_2)
 
