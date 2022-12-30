@@ -7,6 +7,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Document</title>
   <link rel="stylesheet" href="../static/style/style.css" />
+
+  <!-- Normalize CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <!-- Cropper CSS -->
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/cropper/2.3.4/cropper.min.css'>
+  <!-- Cropper JS -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/cropperjs/0.8.1/cropper.min.js'></script>
+
 </head>
 
 <form style="display: flex; flex: 1;" action="http://127.0.0.1:10000/" id="SubmitForm" method="post"
@@ -17,7 +25,7 @@
     <div style="width: 25%; display: flex; flex-direction: column;">
       <div class="container">
         <label class="containerLabel">First image</label>
-        <div class="imageContainer">
+        <div class="imageContainer" id="firstimagecont">
           <img id="FirstImage" class="Image" />
         </div>
       </div>
@@ -25,7 +33,7 @@
       <!-- ------------------------ The Second Image Container ---------------------- -->
       <div class="container">
         <label class="containerLabel">Second image</label>
-        <div class="imageContainer">
+        <div class="imageContainer" id="secondimagecont">
           <img id="SecondImage" class="Image" />
         </div>
       </div>
@@ -37,6 +45,8 @@
       <div class="imageContainer">
         <input id="FirstImageInput" name="input1" type="file" accept="image/*" style="display: none" />
         <label for="FirstImageInput" id="FirstImageBtn" class="ImageBtn">Upload Image 1</label>
+        <button id="saveBtn1">Save</button>
+        <a href="" id="download1">download</a>
         <div style="color: white;">
           <p> Image Shown:</p>
           <input type="radio" id="Original" name="FirstImageTools" value="Original" checked>
@@ -57,6 +67,9 @@
       <div class="imageContainer">
         <input id="SecondImageInput" name="input2" type="file" accept="image/*" style="display: none" />
         <label for="SecondImageInput" id="SecondImageBtn" class="ImageBtn">Upload Image 2</label>
+        <button id="saveBtn2">Save</button>
+        <a href="" id="download2">download</a>
+
         <div style="color: white;">
           <p>Image Shown:</p>
           <input type="radio" id="Original" name="SecondImageTools" value="Original" checked>
