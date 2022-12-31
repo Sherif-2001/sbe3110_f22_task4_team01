@@ -19,13 +19,7 @@ cropper2 = '';
 let firstimagecont = document.getElementById("firstimagecont")
 let secondimagecont = document.getElementById("secondimagecont")
 
-
-let save1 = document.getElementById("saveBtn1");
-let save2 = document.getElementById("saveBtn2");
-
-let dwn1 = document.getElementById("download1");
-let dwn2 = document.getElementById("download2");
-
+let cropDimensions = [];
 
 FirstImageInput.addEventListener("change", function () {
   let reader = new FileReader();
@@ -41,17 +35,20 @@ FirstImageInput.addEventListener("change", function () {
       let img = document.createElement('img');
       img.id = 'image';
       img.src = e.target.result;
-      img.style = "  display: flex; max-width: 100%; max-height: 100%; border-radius: 5%; object-fit: contain;";
+      img.style = "  display: flex; max-width: 100%; max-height: 100%; border-radius: 5%; object-fit: cover;";
       // clean result before
       firstimagecont.innerHTML = '';
       // append new image
       firstimagecont.appendChild(img);
       // init cropper
-      cropper1 = new Cropper(img);
+      cropper1 = new Cropper(img, {
+        crop(event) {
+          cropDimensions[0] = [Math.round(event.detail.x), Math.round(event.detail.y), Math.round(event.detail.width), Math.round(event.detail.height)];
+          loadDoc();
+        },
+      });
     }
   };
-
-  // });
   reader.readAsDataURL(this.files[0]);
   FirstImageInput.removeEventListener();
 });
@@ -76,7 +73,12 @@ SecondImageInput.addEventListener("change", function () {
       // append new image
       secondimagecont.appendChild(img);
       // init cropper
-      cropper2 = new Cropper(img);
+      cropper2 = new Cropper(img, {
+        crop(event) {
+          cropDimensions[1] = [Math.round(event.detail.x), Math.round(event.detail.y), Math.round(event.detail.width), Math.round(event.detail.height)];
+          loadDoc();
+        },
+      });
     }
   };
 
@@ -127,33 +129,20 @@ form.addEventListener('submit', function (event) {
   event.preventDefault();    // prevent page from refreshing
 });
 
+function loadDoc() {
+  $.ajax({
+    url: '/',
+    type: 'POST',
+    contentType: "application/json; charset=utf-8",
+    cache: false,
+    processData: false,
+    async: true,
+    data: JSON.stringify({
+      "dimensions": cropDimensions
+    }),
+    success: function (response) {
+      console.log("Sent Successfuly");
+    }
+  });
+}
 
-// save on click
-save1.addEventListener('click', e => {
-  e.preventDefault();
-  // get result to data uri
-  let imgSrc = cropper1.getCroppedCanvas({ width: 300 }).toDataURL();
-  // remove hide class of img
-  FirstImage.classList.remove('hide');
-  // img_result.classList.remove('hide');
-  // show image FirstImage
-  FirstImage.src = imgSrc;
-  // dwn.classList.remove('hide');
-  dwn.download = 'image1.png';
-  dwn.setAttribute('href', imgSrc);
-});
-
-
-save2.addEventListener('click', e => {
-  e.preventDefault();
-  // get result to data uri
-  let imgSrc = cropper2.getCroppedCanvas({ width: 300 }).toDataURL();
-  // remove hide class of img
-  SecondImage.classList.remove('hide');
-  // img_result.classList.remove('hide');
-  // show image SecondImage
-  SecondImage.src = imgSrc;
-  // dwn.classList.remove('hide');
-  dwn.download = 'image2.png';
-  dwn.setAttribute('href', imgSrc);
-});

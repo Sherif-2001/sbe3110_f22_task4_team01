@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 from numpy.fft import ifft2, fft2, fftshift
 import cmath
 import function as fn 
+import json
 
 app = Flask(__name__, template_folder="templates")
 
@@ -65,5 +66,13 @@ def upload():
 
     return render_template('index.html')
     
+
+@app.route("/dimensions", methods = ["GET","POST"])
+def dimensions():
+    dim = request.json["dimensions"]
+    print("Dimensions:")
+    print(dim)
+    return "sherif"
+
 if __name__ == '__main__':
     app.run(debug=True , port=10000)

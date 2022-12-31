@@ -33,10 +33,8 @@ def resize_images(img1,img2):
 
 def cropping_fourier (Fouri_img1,Fouri_img2,cropping_indecies):
 
-
     F1_2d=Fouri_img1
     F2_2d=Fouri_img2
-
 
     left1    =cropping_indecies[0]
     top1     =int(cropping_indecies[1]*500/300)
@@ -52,8 +50,8 @@ def cropping_fourier (Fouri_img1,Fouri_img2,cropping_indecies):
     
     rejected_part1 = F1_2d*0
     rejected_part2 = F2_2d*0
-    rejected_part1 +=1+1j
-    rejected_part2 +=1+1j
+    rejected_part1 += 1+1j
+    rejected_part2 += 1+1j
 
     result1=rejected_part1.copy()
     result2=rejected_part2.copy()
@@ -97,7 +95,7 @@ def Process_images(img1,img2,choices):
  
     cv2.imwrite("/static/images/output_image1.png", imgCombined)
 
-    return  imgCombined 
+    return imgCombined
 
 def read_images(cropped_indecies):
     img_file1="/static/images/image1.png"
