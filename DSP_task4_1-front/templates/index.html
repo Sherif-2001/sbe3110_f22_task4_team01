@@ -13,6 +13,7 @@
   <!-- Cropper CSS -->
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/cropper/2.3.4/cropper.min.css'>
   <!-- Cropper JS -->
+
   <script src='https://cdnjs.cloudflare.com/ajax/libs/cropperjs/0.8.1/cropper.min.js'></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 </head>
@@ -25,16 +26,20 @@
     <div style="width: 25%; display: flex; flex-direction: column;">
       <div class="container">
         <label class="containerLabel">First image</label>
-        <div class="imageContainer" id="firstimagecont">
-          <img id="FirstImage" class="Image" />
+        <div class="imageContainer">
+          <img id="FirstImageUniform" class="Image" style="display: flex;" />
+          <img id="FirstImageMag" class="Image" style="display: none;" />
+          <img id="FirstImagePhase" class="Image" style="display: none;" />
         </div>
       </div>
 
       <!-- ------------------------ The Second Image Container ---------------------- -->
       <div class="container">
         <label class="containerLabel">Second image</label>
-        <div class="imageContainer" id="secondimagecont">
-          <img id="SecondImage" class="Image" />
+        <div class="imageContainer">
+          <img id="SecondImageUniform" class="Image" style="display: flex;" />
+          <img id="SecondImageMag" class="Image" style="display: none;" />
+          <img id="SecondImagePhase" class="Image" style="display: none;" />
         </div>
       </div>
     </div>
@@ -43,16 +48,16 @@
     <div class="toolsBox" style="width: 25%;">
       <label class="containerLabel">Tools Box</label>
       <div class="imageContainer">
-        <input id="FirstImageInput" name="input1" type="file" accept="image/*" style="display: none" />
+        <input id="FirstImageInput" name="input1" type="file" accept="image/*" hidden />
         <label for="FirstImageInput" id="FirstImageBtn" class="ImageBtn">Upload Image 1</label>
         <div style="color: white;">
           <p> Image Shown:</p>
-          <input type="radio" id="Original" name="FirstImageTools" value="Original" checked>
-          <label for="Original">Original</label><br>
-          <input type="radio" id="Phase" name="FirstImageTools" value="Phase">
-          <label for="Phase">Phase</label><br>
+          <input type="radio" id="Uniform" name="FirstImageTools" value="Uniform" checked>
+          <label for="Uniform">Uniform</label><br>
           <input type="radio" id="Magnitude" name="FirstImageTools" value="Magnitude">
-          <label for="Magnitude">Magnitude</label>
+          <label for="Magnitude">Magnitude</label><br>
+          <input type="radio" id="Phase" name="FirstImageTools" value="Phase">
+          <label for="Phase">Phase</label>
         </div>
       </div>
       <!-- ------------------------ The Mix Button ----------------------------- -->
@@ -63,16 +68,16 @@
       <!-- ------------------------ The Second Image Tools ----------------------- -->
 
       <div class="imageContainer">
-        <input id="SecondImageInput" name="input2" type="file" accept="image/*" style="display: none" />
+        <input id="SecondImageInput" name="input2" type="file" accept="image/*" hidden />
         <label for="SecondImageInput" id="SecondImageBtn" class="ImageBtn">Upload Image 2</label>
         <div style="color: white;">
           <p>Image Shown:</p>
-          <input type="radio" id="Original" name="SecondImageTools" value="Original" checked>
-          <label for="Original">Original</label><br>
-          <input type="radio" id="Phase" name="SecondImageTools" value="Phase">
-          <label for="Phase">Phase</label><br>
-          <input type="radio" id="Magnitude" name="SecondImageTools" value="Magnitude">
-          <label for="Magnitude">Magnitude</label>
+          <input type="radio" id="UniformBtn" name="SecondImageTools" value="Uniform" checked>
+          <label for="UniformBtn">Uniform</label><br>
+          <input type="radio" id="MagnitudeBtn" name="SecondImageTools" value="Magnitude">
+          <label for="MagnitudeBtn">Magnitude</label><br>
+          <input type="radio" id="PhaseBtn" name="SecondImageTools" value="Phase">
+          <label for="PhaseBtn">Phase</label>
         </div>
       </div>
 
