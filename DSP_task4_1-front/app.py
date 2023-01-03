@@ -5,6 +5,9 @@ import matplotlib.pyplot as plt
 from numpy.fft import ifft2, fft2, fftshift
 import cmath
 import new_functions as fn 
+import PIL.Image as Image
+import io
+
 
 app = Flask(__name__, template_folder="templates")
 
@@ -12,105 +15,47 @@ app = Flask(__name__, template_folder="templates")
 def home():
     return render_template('index.html')
 
-@app.route('/', methods=['GET', 'POST'])
-def upload():
-    if request.method=="POST":
-        image1= request.files["input1"]
-        path_1 ="DSP_task4_1-front/static/images/image1.png"
-        image1.save(path_1)
-        image2= request.files["input2"]
-        path_2 ="DSP_task4_1-front/static/images/image2.png"
-        image2.save(path_2)
-
-        # photo1=cv2.imread("DSP_task4_1-front/static/images/image1.png")
-        # photo2=cv2.imread("DSP_task4_1-front/static/images/image2.png")
-
-        # img1_gray = cv2.cvtColor(photo1,cv2.COLOR_BGR2GRAY)
-        # img2_gray = cv2.cvtColor(photo2, cv2.COLOR_BGR2GRAY)
-        # img1,img2 = fn.resize_images(img1_gray,img2_gray)
-
-        # img1_fft = np.fft.fftshift(np.fft.fft2(img1))
-        # img2_fft = np.fft.fftshift(np.fft.fft2(img2))
-
-        # fig, ax = plt.subplots()
-        # ax.imshow (np.log(np.abs(img1_fft)), cmap='gray')
-        # ax.axis("off")
-        # fig.savefig("DSP_task4_1-front/static/images/image1_mag.png",bbox_inches="tight",pad_inches=0, dpi=100)
-
-        # fig1, ax1 = plt.subplots()
-        # ax1.imshow (np.angle(img1_fft), cmap='gray')
-        # ax1.axis("off")
-        # fig1.savefig("DSP_task4_1-front/static/images/image1_phase.png",bbox_inches="tight",pad_inches=0, dpi=100)
-
-        # fig2, ax2 = plt.subplots()
-        # ax2.imshow (np.log(np.abs(img2_fft)), cmap='gray')
-        # ax2.axis("off")
-        # fig2.savefig("DSP_task4_1-front/static/images/image2_mag.png",bbox_inches="tight",pad_inches=0, dpi=100)
-
-        # fig3, ax3= plt.subplots()
-        # ax3.imshow (np.angle(img2_fft), cmap='gray')
-        # ax3.axis("off")
-        # fig3.savefig("DSP_task4_1-front/static/images/image2_phase.png",bbox_inches="tight",pad_inches=0, dpi=100)
-
-
-        # imageMixes = [["image_mixed_mag1_p2",[0,1]],["image_mixed_mag2_p1",[1,0]],["image_mixed_mag2_mag1",[0,0]],["image_mixed_p1_p2",[1,1]]]
-        # for i in range(len(imageMixes)):
-        #     imgCombined = fn.Process_images(img1,img2,imageMixes[i][1])
-        #     fig4, ax4= plt.subplots()
-        #     ax4.imshow (imgCombined, cmap='gray')
-        #     ax4.axis("off")
-        #     fig4.savefig(f"DSP_task4_1-front/static/images/{imageMixes[i][0]}.png",bbox_inches="tight",pad_inches=0, dpi=100)
-
-        return redirect(request.url)
-
-    return render_template('index.html')
-    
 
 @app.route("/dimensions", methods = ["GET","POST"])
 def dimensions():
-    dim = request.json["dimensions"]
-    print("Dimensions:")
-    print(dim)
-    photo1=cv2.imread("DSP_task4_1-front/static/images/image1.png")
-    photo2=cv2.imread("DSP_task4_1-front/static/images/image2.png")
+    data = request.data
+    dimensionsStr = data.decode("utf-8").split(",")
+    dimensionNum = [eval(i) for i in dimensionsStr]
+    dimensions = [dimensionNum[:4],dimensionNum[4:8]]
+    choices = dimensionNum[8:10]
+    checkBoxes = dimensionNum[10:]
+
+    photo1=cv2.imread(fn.image1Path)
+    photo2=cv2.imread(fn.image2Path)
 
     img1_gray = cv2.cvtColor(photo1,cv2.COLOR_BGR2GRAY)
     img2_gray = cv2.cvtColor(photo2, cv2.COLOR_BGR2GRAY)
     img1,img2 = fn.resize_images(img1_gray,img2_gray)
 
-    img1_fft = np.fft.fftshift(np.fft.fft2(img1))
-    img2_fft = np.fft.fftshift(np.fft.fft2(img2))
+    imgCombined = fn.mixCroppedImages(img1,img2,choices,dimensions,checkBoxes)
+    cv2.imwrite("DSP_task4_1-front/static/images/image_mix.png",imgCombined)
+    return "Mix sent"
 
-    fig, ax = plt.subplots()
-    ax.imshow (np.log(np.abs(img1_fft)), cmap='gray')
-    ax.axis("off")
-    fig.savefig("DSP_task4_1-front/static/images/image1_mag.png",bbox_inches="tight",pad_inches=0, dpi=100)
+@app.route("/image1", methods = ["GET", "POST"])
+def uploadImage1():
+    if(request.method == "POST"):
+        file = request.data
+        img = Image.open(io.BytesIO(file))
+        img.save(fn.image1Path)
+        fn.saveMagnitudePhaseImages(fn.image1Path,1)
+        fn.saveMixedImage()
+    return "image 1 processed"
 
-    fig1, ax1 = plt.subplots()
-    ax1.imshow (np.angle(img1_fft), cmap='gray')
-    ax1.axis("off")
-    fig1.savefig("DSP_task4_1-front/static/images/image1_phase.png",bbox_inches="tight",pad_inches=0, dpi=100)
+@app.route("/image2", methods = ["GET", "POST"])
+def uploadImage2():
+    if(request.method == "POST"):
+        file = request.data
+        img = Image.open(io.BytesIO(file))
+        img.save(fn.image2Path)
+        fn.saveMagnitudePhaseImages(fn.image2Path,2)
+        fn.saveMixedImage()
+    return "image 2 processed"
 
-    fig2, ax2 = plt.subplots()
-    ax2.imshow (np.log(np.abs(img2_fft)), cmap='gray')
-    ax2.axis("off")
-    fig2.savefig("DSP_task4_1-front/static/images/image2_mag.png",bbox_inches="tight",pad_inches=0, dpi=100)
-
-    fig3, ax3= plt.subplots()
-    ax3.imshow (np.angle(img2_fft), cmap='gray')
-    ax3.axis("off")
-    fig3.savefig("DSP_task4_1-front/static/images/image2_phase.png",bbox_inches="tight",pad_inches=0, dpi=100)
-
-
-    imageMixes = [["image_mixed_mag1_p2",[0,1]],["image_mixed_mag2_p1",[1,0]],["image_mixed_mag2_mag1",[0,0]],["image_mixed_p1_p2",[1,1]]]
-    # for i in range(len(imageMixes)):
-    imgCombined = fn.Process_images(img1,img2,[1,0],dim)
-        # fig4, ax4= plt.subplots()
-        # ax4.imshow (imgCombined, cmap='gray')
-        # ax4.axis("off")
-        # fig4.savefig(f"DSP_task4_1-front/static/images/{imageMixes[i][0]}.png",bbox_inches="tight",pad_inches=0, dpi=100)
-    cv2.imwrite("DSP_task4_1-front/static/images/compennn.png",imgCombined)
-    return "sherif"
 
 if __name__ == '__main__':
     app.run(debug=True , port=10000)

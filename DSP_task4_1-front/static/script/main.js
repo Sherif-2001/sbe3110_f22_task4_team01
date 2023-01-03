@@ -1,139 +1,198 @@
 const FirstImageInput = document.getElementById("FirstImageInput");
 const SecondImageInput = document.getElementById("SecondImageInput");
 
-const MixButton = document.getElementById("MixButton");
-
-let FirstImageUniform = document.getElementById("FirstImageUniform");
-let FirstImageMag = document.getElementById("FirstImageMag");
-let FirstImagePhase = document.getElementById("FirstImagePhase");
-
-let SecondImage = document.getElementById("SecondImage");
-let MixedImage = document.getElementById("MixedImage");
+const FirstImage = document.getElementById("FirstImage");
+const SecondImage = document.getElementById("SecondImage");
+const MixedImage = document.getElementById("MixedImage");
 
 const FirstTools = document.getElementsByName("FirstImageTools");
 const SecondTools = document.getElementsByName("SecondImageTools");
 
-let form = document.getElementById("SubmitForm");
+const img1cont = document.getElementById("img1cont");
+const img2cont = document.getElementById("img2cont");
 
-let cropperMag1 = '';
-let cropperPhase1 = '';
-let cropperMag2 = '';
-let cropperPhase2 = '';
+const checkBox1 = document.getElementById("checkbox1");
+const checkBox2 = document.getElementById("checkbox2");
 
-let cropDimensions = [];
+const image1Path = "../static/images/image1.png";
+const image1MagPath = "../static/images/image1_mag.png?";
+const image1PhasePath = "../static/images/image1_phase.png?";
+
+const image2Path = "../static/images/image2.png";
+const image2MagPath = "../static/images/image2_mag.png?";
+const image2PhasePath = "../static/images/image2_phase.png?";
+
+const imageMixed = "../static/images/image_mix.png?";
+
+let cropDimensions = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0], [0, 0]];
 
 FirstImageInput.addEventListener("change", function () {
   let reader = new FileReader();
   reader.onload = e => {
     if (e.target.result) {
-      FirstImageUniform.src = e.target.result;
-      makeCropper(FirstImageMag);
-      makeCropper(FirstImagePhase);
+      setTimeout(function () {
+        FirstTools[0].checked = true;
+        FirstImage.src = e.target.result;
+        let img = document.createElement("img");
+        img.id = "image";
+        img.src = image1MagPath + new Date().getTime();
+        img1cont.innerHTML = "";
+        img1cont.appendChild(img);
+        cropper = new Cropper(img, {
+          crop(event) {
+            cropDimensions[0] = [Math.round(event.detail.x), Math.round(event.detail.y), Math.round(event.detail.width), Math.round(event.detail.height)];
+            loadDimensions();
+          }
+        });
+      }, 1000);
     }
   };
   reader.readAsDataURL(this.files[0]);
+  LoadImage(this.files[0], 1);
 });
 
 SecondImageInput.addEventListener("change", function () {
   let reader = new FileReader();
   reader.onload = e => {
     if (e.target.result) {
-      SecondImageUniform.src = e.target.result;
-      makeCropper(SecondImageMag);
-      makeCropper(SecondImagePhase);
+      setTimeout(() => {
+        SecondTools[0].checked = true;
+        SecondImage.src = e.target.result;
+        let img = document.createElement("img");
+        img.id = "image";
+        img.src = image2MagPath + new Date().getTime();
+        img2cont.innerHTML = "";
+        img2cont.appendChild(img);
+        cropper2 = new Cropper(img, {
+          crop(event) {
+            cropDimensions[1] = [Math.round(event.detail.x), Math.round(event.detail.y), Math.round(event.detail.width), Math.round(event.detail.height)];
+            loadDimensions();
+          }
+        });
+      }, 1000);
+
     }
   };
-
   reader.readAsDataURL(this.files[0]);
-}
-);
+  LoadImage(this.files[0], 2);
+});
+
+checkBox1.addEventListener("change", function () {
+  cropDimensions[3][0] = this.checked ? 1 : 0;
+  loadDimensions();
+
+})
+
+checkBox2.addEventListener("change", function () {
+  cropDimensions[3][1] = this.checked ? 1 : 0;
+  loadDimensions();
+})
 
 
 for (radio in FirstTools) {
   FirstTools[radio].onclick = function () {
-    if (this.value == "Uniform") {
-      FirstImageUniform.style.display = "flex";
-      FirstImageMag.style.display = "none";
-      FirstImagePhase.style.display = "none";
-    } else if (this.value == "Magnitude") {
-      FirstImageMag.src = "../static/images/image1_mag.png";
-      FirstImageUniform.style.display = "none";
-      FirstImageMag.style.display = "flex";
-      FirstImagePhase.style.display = "none";
+    if (this.value == "Magnitude") {
+      cropDimensions[2][0] = 0;
+      let img = document.createElement("img");
+      img.id = "image";
+      img.src = image1MagPath + new Date().getTime();
+      img1cont.innerHTML = "";
+      img1cont.appendChild(img);
+      cropper = new Cropper(img, {
+        crop(event) {
+          cropDimensions[0] = [Math.round(event.detail.x), Math.round(event.detail.y), Math.round(event.detail.width), Math.round(event.detail.height)];
+          loadDimensions();
+        }
+      });
     } else if (this.value == "Phase") {
-      FirstImagePhase.src = "../static/images/image1_phase.png";
-      FirstImageUniform.style.display = "none";
-      FirstImageMag.style.display = "none";
-      FirstImagePhase.style.display = "flex";
+      cropDimensions[2][0] = 1;
+      let img = document.createElement("img");
+      img.id = "image";
+      img.src = image1PhasePath + new Date().getTime();
+      img1cont.innerHTML = "";
+      img1cont.appendChild(img);
+      cropper = new Cropper(img, {
+        crop(event) {
+          cropDimensions[0] = [Math.round(event.detail.x), Math.round(event.detail.y), Math.round(event.detail.width), Math.round(event.detail.height)];
+          loadDimensions();
+        }
+      });
     }
   }
 }
 
 for (radio in SecondTools) {
+
   SecondTools[radio].onclick = function () {
-    if (this.value == "Uniform") {
-      SecondImageUniform.style.display = "flex";
-      SecondImageMag.style.display = "none";
-      SecondImagePhase.style.display = "none";
-    } else if (this.value == "Magnitude") {
-      SecondImageMag.src = "../static/images/image2_mag.png";
-      SecondImageUniform.style.display = "none";
-      SecondImageMag.style.display = "flex";
-      SecondImagePhase.style.display = "none";
+    if (this.value == "Magnitude") {
+      cropDimensions[2][1] = 0;
+      let img = document.createElement("img");
+      img.id = "image";
+      img.src = image2MagPath + new Date().getTime();
+      img2cont.innerHTML = "";
+      img2cont.appendChild(img);
+      cropper = new Cropper(img, {
+        crop(event) {
+          cropDimensions[1] = [Math.round(event.detail.x), Math.round(event.detail.y), Math.round(event.detail.width), Math.round(event.detail.height)];
+          loadDimensions();
+        }
+      });
     } else if (this.value == "Phase") {
-      SecondImagePhase.src = "../static/images/image2_phase.png";
-      SecondImageUniform.style.display = "none";
-      SecondImageMag.style.display = "none";
-      SecondImagePhase.style.display = "flex";
+      cropDimensions[2][1] = 1;
+      let img = document.createElement("img");
+      img.id = "image";
+      img.src = image2PhasePath + new Date().getTime();
+      img2cont.innerHTML = "";
+      img2cont.appendChild(img);
+      cropper = new Cropper(img, {
+        crop(event) {
+          cropDimensions[1] = [Math.round(event.detail.x), Math.round(event.detail.y), Math.round(event.detail.width), Math.round(event.detail.height)];
+          loadDimensions();
+        }
+      });
     }
   }
 }
 
-MixButton.addEventListener("click", function () {
-  if (FirstTools[2].checked && SecondTools[2].checked) {
-    MixedImage.src = "../static/images/image_mixed_mag2_mag1.png";
-  } else if (FirstTools[2].checked && SecondTools[1].checked) {
-    MixedImage.src = "../static/images/image_mixed_mag1_p2.png";
-  } else if (FirstTools[1].checked && SecondTools[2].checked) {
-    MixedImage.src = "../static/images/image_mixed_mag2_p1.png";
-  } else if (FirstTools[1].checked && SecondTools[1].checked) {
-    MixedImage.src = "../static/images/image_mixed_p1_p2.png";
+function LoadImage(data, index) {
+  const xhttp = new XMLHttpRequest();
+  xhttp.onload = function () {
+    console.log(this.responseText);
+  }
+  if (index == 1) {
+    xhttp.open("POST", "/image1", true);
   } else {
-    MixedImage.src = "../static/images/image_mixed_mag2_mag1.png";
+    xhttp.open("POST", "/image2", true);
   }
-});
-
-form.addEventListener('submit', function (event) {
-  event.preventDefault();    // prevent page from refreshing
-});
-
-function loadDoc() {
-  $.ajax({
-    url: '/dimensions',
-    type: 'POST',
-    contentType: "application/json; charset=utf-8",
-    cache: false,
-    processData: false,
-    async: true,
-    data: JSON.stringify({
-      "dimensions": cropDimensions
-    }),
-    success: function (response) {
-      console.log("Sent Successfuly");
-    }
-  });
+  xhttp.send(data);
 }
 
-function makeCropper(srcHtml) {
-  // init cropper
-  return Cropper(srcHtml, {
-    autoCrop: true,
-    autoCropArea: 0.8,
-    aspectRatio: 1,
-    viewMode: 5,
-    crop(event) {
-      cropDimensions[0] = [Math.round(event.detail.x), Math.round(event.detail.y), Math.round(event.detail.width), Math.round(event.detail.height)];
-      loadDoc();
-    },
-  });
+function loadDimensions() {
+  const xhttp = new XMLHttpRequest();
+  xhttp.onload = function () {
+    console.log(this.responseText);
+  }
+  xhttp.open("POST", "/dimensions", true);
+  xhttp.send(cropDimensions);
 }
+
+function setMixed() {
+  MixedImage.src = imageMixed + new Date().getTime();
+}
+
+window.setInterval(setMixed, 100)
+
+// $.ajax({
+//   url: '/dimensions',
+//   type: 'POST',
+//   contentType: "application/json; charset=utf-8",
+//   cache: false,
+//   processData: false,
+//   async: true,
+//   data: JSON.stringify({
+//     "dimensions": cropDimensions
+//   }),
+//   success: function (response) {
+//     console.log("Sent Successfuly");
+//   }
+// });

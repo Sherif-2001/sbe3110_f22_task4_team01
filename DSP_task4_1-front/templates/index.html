@@ -12,88 +12,76 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
   <!-- Cropper CSS -->
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/cropper/2.3.4/cropper.min.css'>
-  <!-- Cropper JS -->
-
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/cropperjs/0.8.1/cropper.min.js'></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 </head>
 
-<form style="display: flex; flex: 1;" action="http://127.0.0.1:10000/" id="SubmitForm" method="post"
-  enctype="multipart/form-data">
-
-  <body>
-    <!-- ------------------------ The First Image Container ----------------------- -->
-    <div style="width: 25%; display: flex; flex-direction: column;">
-      <div class="container">
-        <label class="containerLabel">First image</label>
-        <div class="imageContainer">
-          <img id="FirstImageUniform" class="Image" style="display: flex;" />
-          <img id="FirstImageMag" class="Image" style="display: none;" />
-          <img id="FirstImagePhase" class="Image" style="display: none;" />
-        </div>
+<body>
+  <!-- ------------------------ The First Original Image Container ----------------------- -->
+  <div style="width: 30%; display: flex; flex-direction: column;">
+    <div class="container">
+      <label class="containerLabel">First image</label>
+      <div class="imageContainer">
+        <img id="FirstImage" class="Image" />
       </div>
-
-      <!-- ------------------------ The Second Image Container ---------------------- -->
-      <div class="container">
-        <label class="containerLabel">Second image</label>
-        <div class="imageContainer">
-          <img id="SecondImageUniform" class="Image" style="display: flex;" />
-          <img id="SecondImageMag" class="Image" style="display: none;" />
-          <img id="SecondImagePhase" class="Image" style="display: none;" />
-        </div>
-      </div>
+      <input id="FirstImageInput" name="input1" type="file" accept="image/*" hidden />
+      <label for="FirstImageInput" id="FirstImageBtn" class="ImageBtn">Upload Image 1</label>
     </div>
 
-    <!-- ------------------------ The First Image Tools ----------------------- -->
-    <div class="toolsBox" style="width: 25%;">
-      <label class="containerLabel">Tools Box</label>
+    <!-- ------------------------ The Second Original Image Container ---------------------- -->
+    <div class="container">
+      <label class="containerLabel">Second image</label>
       <div class="imageContainer">
-        <input id="FirstImageInput" name="input1" type="file" accept="image/*" hidden />
-        <label for="FirstImageInput" id="FirstImageBtn" class="ImageBtn">Upload Image 1</label>
-        <div style="color: white;">
-          <p> Image Shown:</p>
-          <input type="radio" id="Uniform" name="FirstImageTools" value="Uniform" checked>
-          <label for="Uniform">Uniform</label><br>
-          <input type="radio" id="Magnitude" name="FirstImageTools" value="Magnitude">
-          <label for="Magnitude">Magnitude</label><br>
-          <input type="radio" id="Phase" name="FirstImageTools" value="Phase">
-          <label for="Phase">Phase</label>
-        </div>
+        <img id="SecondImage" class="Image" />
       </div>
-      <!-- ------------------------ The Mix Button ----------------------------- -->
+      <input id="SecondImageInput" name="input2" type="file" accept="image/*" hidden />
+      <label for="SecondImageInput" id="SecondImageBtn" class="ImageBtn">Upload Image 2</label>
+    </div>
+  </div>
 
-      <div class="imageContainer">
-        <button type="submit" form="SubmitForm" id="MixButton" class="MixButton">Mix Images</button>
-      </div>
-      <!-- ------------------------ The Second Image Tools ----------------------- -->
-
-      <div class="imageContainer">
-        <input id="SecondImageInput" name="input2" type="file" accept="image/*" hidden />
-        <label for="SecondImageInput" id="SecondImageBtn" class="ImageBtn">Upload Image 2</label>
-        <div style="color: white;">
-          <p>Image Shown:</p>
-          <input type="radio" id="UniformBtn" name="SecondImageTools" value="Uniform" checked>
-          <label for="UniformBtn">Uniform</label><br>
-          <input type="radio" id="MagnitudeBtn" name="SecondImageTools" value="Magnitude">
-          <label for="MagnitudeBtn">Magnitude</label><br>
-          <input type="radio" id="PhaseBtn" name="SecondImageTools" value="Phase">
-          <label for="PhaseBtn">Phase</label>
-        </div>
-      </div>
+  <!-- ------------------------ The First Image Magnitude/Phase ----------------------- -->
+  <div class="toolsBox" style="width: 30%;">
+    <label class="containerLabel">Mag1 / Phase1</label>
+    <div class="imageContainer" id="img1cont">
+    </div>
+    <!-- ------------------------ The Magnitude/Phase tools ----------------------- -->
+    <div style="display: flex;">
+      <input type="radio" id="Magnitude" name="FirstImageTools" value="Magnitude" checked>
+      <label for="Magnitude">Magnitude</label><br>
+      <input type="radio" id="Phase" name="FirstImageTools" value="Phase">
+      <label for="Phase">Phase</label>
+      <input type="checkbox" id="checkbox1" name="outin1">
+      <label for="checkbox1">Outside/Inside</label>
 
     </div>
+    <!-- ------------------------ The Second Image Magnitude/Phase ------------------- -->
 
-    <!-- ----------------------- The Mixed Image Container -------------------- -->
-    <div class="mixedContainer">
-      <label class="containerLabel">Mixed image</label>
-      <div class="imageContainer">
-        <img id="MixedImage" class="Image" />
-      </div>
+    <label class="containerLabel">Mag2 / Phase2</label>
+    <div class="imageContainer" id="img2cont">
+    </div>
+    <!-- ------------------------ The Magnitude/Phase tools ----------------------- -->
+    <div style="display: flex;">
+      <input type="radio" id="MagnitudeBtn" name="SecondImageTools" value="Magnitude" checked>
+      <label for="MagnitudeBtn">Magnitude</label><br>
+      <input type="radio" id="PhaseBtn" name="SecondImageTools" value="Phase">
+      <label for="PhaseBtn">Phase</label>
+      <input type="checkbox" id="checkbox2" name="outin2">
+      <label for="checkbox2">Outside/Inside</label>
     </div>
 
-  </body>
-</form>
+  </div>
 
-<script src="../static/script/main.js"></script>
+  <!-- ----------------------- The Mixed Image Container -------------------- -->
+  <div class="mixedContainer">
+    <label class="containerLabel">Mixed image</label>
+    <div class="imageContainer">
+      <img id="MixedImage" class="Image" />
+    </div>
+  </div>
+
+  <!-- Cropper JS -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/cropperjs/0.8.1/cropper.min.js'></script>
+  <script src="../static/script/main.js"></script>
+
+</body>
 
 </html>
