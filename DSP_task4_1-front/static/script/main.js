@@ -11,8 +11,7 @@ const SecondTools = document.getElementsByName("SecondImageTools");
 const img1cont = document.getElementById("img1cont");
 const img2cont = document.getElementById("img2cont");
 
-const checkBox1 = document.getElementById("checkbox1");
-const checkBox2 = document.getElementById("checkbox2");
+const checkBox = document.getElementById("checkbox");
 
 const image1Path = "../static/images/image1.png";
 const image1MagPath = "../static/images/image1_mag.png?";
@@ -24,7 +23,7 @@ const image2PhasePath = "../static/images/image2_phase.png?";
 
 const imageMixed = "../static/images/image_mix.png?";
 
-let cropDimensions = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0], [0, 0]];
+let cropDimensions = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0], [0]];
 
 FirstImageInput.addEventListener("change", function () {
   let reader = new FileReader();
@@ -56,11 +55,11 @@ SecondImageInput.addEventListener("change", function () {
   reader.onload = e => {
     if (e.target.result) {
       setTimeout(() => {
-        SecondTools[0].checked = true;
+        SecondTools[1].checked = true;
         SecondImage.src = e.target.result;
         let img = document.createElement("img");
         img.id = "image";
-        img.src = image2MagPath + new Date().getTime();
+        img.src = image2PhasePath + new Date().getTime();
         img2cont.innerHTML = "";
         img2cont.appendChild(img);
         cropper2 = new Cropper(img, {
@@ -77,17 +76,10 @@ SecondImageInput.addEventListener("change", function () {
   LoadImage(this.files[0], 2);
 });
 
-checkBox1.addEventListener("change", function () {
-  cropDimensions[3][0] = this.checked ? 1 : 0;
-  loadDimensions();
-
-})
-
-checkBox2.addEventListener("change", function () {
-  cropDimensions[3][1] = this.checked ? 1 : 0;
+checkBox.addEventListener("change", function () {
+  cropDimensions[3] = this.checked ? 1 : 0;
   loadDimensions();
 })
-
 
 for (radio in FirstTools) {
   FirstTools[radio].onclick = function () {

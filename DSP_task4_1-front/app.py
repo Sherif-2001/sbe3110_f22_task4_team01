@@ -4,17 +4,23 @@ import numpy as np
 import matplotlib.pyplot as plt
 from numpy.fft import ifft2, fft2, fftshift
 import cmath
-import new_functions as fn 
-import PIL.Image as Image
+import images as fn
+from images import Image
+import PIL.Image as ImageSave
 import io
 
+image1Path = "DSP_task4_1-front/static/images/image1.png"
+image1MagPath = "DSP_task4_1-front/static/images/image1_mag.png"
+image1PhasePath = "DSP_task4_1-front/static/images/image1_phase.png"
+image2Path = "DSP_task4_1-front/static/images/image2.png"
+image2MagPath = "DSP_task4_1-front/static/images/image2_mag.png"
+image2PhasePath = "DSP_task4_1-front/static/images/image2_phase.png"
 
 app = Flask(__name__, template_folder="templates")
 
 @app.route('/', methods=['GET'])
 def home():
     return render_template('index.html')
-
 
 @app.route("/dimensions", methods = ["GET","POST"])
 def dimensions():
@@ -23,39 +29,31 @@ def dimensions():
     dimensionNum = [eval(i) for i in dimensionsStr]
     dimensions = [dimensionNum[:4],dimensionNum[4:8]]
     choices = dimensionNum[8:10]
-    checkBoxes = dimensionNum[10:]
-
-    photo1=cv2.imread(fn.image1Path)
-    photo2=cv2.imread(fn.image2Path)
-
-    img1_gray = cv2.cvtColor(photo1,cv2.COLOR_BGR2GRAY)
-    img2_gray = cv2.cvtColor(photo2, cv2.COLOR_BGR2GRAY)
-    img1,img2 = fn.resize_images(img1_gray,img2_gray)
-
-    imgCombined = fn.mixCroppedImages(img1,img2,choices,dimensions,checkBoxes)
-    cv2.imwrite("DSP_task4_1-front/static/images/image_mix.png",imgCombined)
-    return "Mix sent"
+    checkBoxes = dimensionNum[-1]
+    imageProcess = fn.ImageProcessing(choices,dimensions,checkBoxes)
+    imageMixed = imageProcess.ProcessImages()
+    cv2.imwrite("DSP_task4_1-front/static/images/image_mix.png",imageMixed)
+    return "Image Mixed Processed"
 
 @app.route("/image1", methods = ["GET", "POST"])
 def uploadImage1():
     if(request.method == "POST"):
         file = request.data
-        img = Image.open(io.BytesIO(file))
-        img.save(fn.image1Path)
-        fn.saveMagnitudePhaseImages(fn.image1Path,1)
-        fn.saveMixedImage()
+        img = ImageSave.open(io.BytesIO(file))
+        img.save(image1Path)
+        photo1 = Image(image1Path)
+        photo1.saveMagnitudePhaseImages(1)
     return "image 1 processed"
 
 @app.route("/image2", methods = ["GET", "POST"])
 def uploadImage2():
     if(request.method == "POST"):
         file = request.data
-        img = Image.open(io.BytesIO(file))
-        img.save(fn.image2Path)
-        fn.saveMagnitudePhaseImages(fn.image2Path,2)
-        fn.saveMixedImage()
+        img = ImageSave.open(io.BytesIO(file))
+        img.save(image2Path)
+        photo2 = Image(image2Path)
+        photo2.saveMagnitudePhaseImages(2)
     return "image 2 processed"
-
 
 if __name__ == '__main__':
     app.run(debug=True , port=10000)

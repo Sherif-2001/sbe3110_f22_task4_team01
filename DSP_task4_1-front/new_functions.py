@@ -36,7 +36,6 @@ def cropping_fourier (Fouri_img1,choice_img1,Fouri_img2,choice_img2,cropping_ind
     inside_part2  =F2_2d[top2:top2+height2, left2:left2+width2]
     outside_part2 =F2_2d    
 
-
     if(checkBoxesValue == [0,0]):
         chosen_part1 = inside_part1
         chosen_part2 = inside_part2    
@@ -98,10 +97,10 @@ def mixCroppedImages(img1,img2,choices,dim,checkBoxesValue):
         combined_img1 = np.multiply(f, f2)
         
     elif (choices[0]==0 and choices[1]==1 ):
-             
-        f, f2 =cropping_fourier(np.abs(f), 0, np.exp(1j*np.angle(f2)), 1, dim,checkBoxesValue)
+       f, f2 =cropping_fourier(np.abs(f), 0, np.exp(1j*np.angle(f2)), 1, dim,checkBoxesValue)
         combined_img1 = np.multiply(f, f2)
-
+          
+    
 
     elif (choices[0]==1 and choices[1]==0 ):
         f, f2 = cropping_fourier(
