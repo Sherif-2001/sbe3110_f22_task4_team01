@@ -30,7 +30,6 @@ FirstImageInput.addEventListener("change", function () {
   reader.onload = e => {
     if (e.target.result) {
       setTimeout(function () {
-        FirstTools[0].checked = true;
         FirstImage.src = e.target.result;
         let img = document.createElement("img");
         img.id = "image";
@@ -55,11 +54,10 @@ SecondImageInput.addEventListener("change", function () {
   reader.onload = e => {
     if (e.target.result) {
       setTimeout(() => {
-        SecondTools[1].checked = true;
         SecondImage.src = e.target.result;
         let img = document.createElement("img");
         img.id = "image";
-        img.src = image2PhasePath + new Date().getTime();
+        img.src = image2MagPath + new Date().getTime();
         img2cont.innerHTML = "";
         img2cont.appendChild(img);
         cropper2 = new Cropper(img, {

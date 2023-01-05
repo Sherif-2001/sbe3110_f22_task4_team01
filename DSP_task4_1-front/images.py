@@ -1,7 +1,5 @@
-import pandas as pd
 import numpy as np
 import cv2
-import matplotlib.pylab as plt
 
 class Image:
     def __init__(self,image=None, path= None):
@@ -12,10 +10,8 @@ class Image:
             self.read()
 
     def resize(self, height=500, width=500):
-    
         self.image = cv2.resize( self.image, (height, width))
         
-
     def getFourier(self):
         fourier = np.fft.fft2(self.image)
         fourier = np.fft.fftshift(fourier)
@@ -24,7 +20,6 @@ class Image:
     def gray_scale(self):
         # truning colored image to gray
         self.image=cv2.cvtColor(self.image, cv2.COLOR_RGB2GRAY)
-
 
     def save(self ,save_path):
         # saving image to given path
@@ -42,7 +37,6 @@ class Image:
 
         magnitude1 ,phase1=self.MagnitudePhaseImages()
 
-
         magnitude1= Image(image=magnitude1)
         magnitude1.save(f"DSP_task4_1-front\static\images\image{index}_mag.png")
 
@@ -56,7 +50,6 @@ class Image:
         magnitude_spectrum = 20*np.log(cv2.magnitude(dft_shift[:,:,0],dft_shift[:,:,1]))
         mag, ang = cv2.cartToPolar(dft_shift[:,:,0],dft_shift[:,:,1])
         return magnitude_spectrum ,ang
-    
 
 
 class ImageProcessing:
@@ -65,41 +58,34 @@ class ImageProcessing:
         self.choices = choices
         self.cropping_indecies = cropping_indecies
         self.checkBoxValue = checkBoxesValue
-    
+
     def read_images(self):
+            image_file1="DSP_task4_1-front\static\images\image1.png"
+            image_file2="DSP_task4_1-front\static\images\image2.png"
+            # creating objects
+            image1 =Image(path=image_file1)
+            image2 =Image(path=image_file2)
+            image1.gray_scale()
+            image2.gray_scale()
+            image1.resize()
+            image2.resize()
+            return image1,image2
 
-        image_file1="DSP_task4_1-front\static\images\image1.png"
-        image_file2="DSP_task4_1-front\static\images\image2.png"
-
-        # creating objects
-
-        image1 =Image(path=image_file1)
-        image2 =Image(path=image_file2)
-
-        image1.gray_scale()
-        image2.gray_scale()
-
-        image1.resize()
-        image2.resize()
-
-        return image1,image2
-
-
-    def ProcessImages(self):
+    def mixCroppedImages(self):
         
         image1,image2=self.read_images()
 
         f=image1.getFourier()
         f2=image2.getFourier()
             
-        if (self.choices[0]==0 and self.choices[1]==1 ):
+        if (self.choices == [0,1]):
             #-------------------choice1 mag choice2 phase--------------------- 
             # combined_img1 = np.multiply(np.abs(f), np.exp(1j*np.angle(f2)))
             f, f2 =self.cropping_fourier(np.abs(f),  np.exp(1j*np.angle(f2)))
             combined_img1 = np.multiply(f, f2)
 
 
-        elif (self.choices[0]==1 and self.choices[1]==0 ):
+        elif (self.choices == [1,0]):
             #-------------------choice1 phase choice2 mag----------------------
             # combined_img1 = np.multiply(np.abs(f2), np.exp(1j*np.angle(f)))
             f, f2 = self.cropping_fourier(np.exp(1j*np.angle(f)), np.abs(f2))

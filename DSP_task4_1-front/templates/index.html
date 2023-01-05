@@ -40,7 +40,7 @@
 
   <!-- ------------------------ The First Image Magnitude/Phase ----------------------- -->
   <div class="toolsBox" style="width: 30%;">
-    <label class="containerLabel">Mag1 / Phase1</label>
+    <label class="containerLabel">First Image Tools</label>
     <div class="imageContainer" id="img1cont">
     </div>
     <!-- ------------------------ The Magnitude/Phase tools ----------------------- -->
@@ -49,20 +49,18 @@
       <label for="Magnitude">Magnitude</label><br>
       <input type="radio" id="Phase" name="FirstImageTools" value="Phase">
       <label for="Phase">Phase</label>
-      <input type="checkbox" id="checkbox" name="outin">
-      <label for="checkbox">Outside/Inside</label>
 
     </div>
     <!-- ------------------------ The Second Image Magnitude/Phase ------------------- -->
 
-    <label class="containerLabel">Mag2 / Phase2</label>
+    <label class="containerLabel">Second Image Tools</label>
     <div class="imageContainer" id="img2cont">
     </div>
     <!-- ------------------------ The Magnitude/Phase tools ----------------------- -->
     <div style="display: flex;">
-      <input type="radio" id="MagnitudeBtn" name="SecondImageTools" value="Magnitude">
+      <input type="radio" id="MagnitudeBtn" name="SecondImageTools" value="Magnitude" checked>
       <label for="MagnitudeBtn">Magnitude</label><br>
-      <input type="radio" id="PhaseBtn" name="SecondImageTools" value="Phase" checked>
+      <input type="radio" id="PhaseBtn" name="SecondImageTools" value="Phase">
       <label for="PhaseBtn">Phase</label>
     </div>
 
@@ -74,6 +72,8 @@
     <div class="imageContainer">
       <img id="MixedImage" class="Image" />
     </div>
+    <input type="checkbox" id="checkbox" name="outin">
+    <label for="checkbox">Outside</label>
   </div>
 
   <!-- Cropper JS -->
