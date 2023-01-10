@@ -3,13 +3,13 @@ import numpy as np
 import cv2
 import matplotlib.pyplot as plt
 
-image1Path = "DSP_task4_1-front/static/images/image1.png"
-image1MagPath = "DSP_task4_1-front/static/images/image1_mag.png"
-image1PhasePath = "DSP_task4_1-front/static/images/image1_phase.png"
-image2Path = "DSP_task4_1-front/static/images/image2.png"
-image2MagPath = "DSP_task4_1-front/static/images/image2_mag.png"
-image2PhasePath = "DSP_task4_1-front/static/images/image2_phase.png"
-imageMixPath = "DSP_task4_1-front/static/images/image_mix.png"
+image1Path = r"C:\Users\Eng_Dina\Downloads\DSP_task4_1-front\static\images\image1.png"
+image1MagPath = r"C:\Users\Eng_Dina\Downloads\DSP_task4_1-front\static\images\image1_mag.png"
+image1PhasePath = r"C:\Users\Eng_Dina\Downloads\DSP_task4_1-front\static\images\image1_phase.png"
+image2Path = r"C:\Users\Eng_Dina\Downloads\DSP_task4_1-front\static\images\image2_phase.png"
+image2MagPath = r"C:\Users\Eng_Dina\Downloads\DSP_task4_1-front\static\images\image2_mag.png"
+image2PhasePath = r"C:\Users\Eng_Dina\Downloads\DSP_task4_1-front\static\images\image2_phase.png"
+imageMixPath = r"C:\Users\Eng_Dina\Downloads\DSP_task4_1-front\static\images\image_mix.png"
 
 class Image:
     def __init__(self,image = None,path= None):
@@ -73,7 +73,7 @@ class ImageProcessing:
 
         imgCombined = np.real(np.fft.ifft2(np.fft.fftshift(image_mixed)))
         img= Image(image=imgCombined)
-        img.save("DSP_task4_1-front\static\images\image_mix.png")
+        img.save(r"C:\Users\Eng_Dina\Downloads\DSP_task4_1-front\static\images\image_mix.png")
 
         return imgCombined
 

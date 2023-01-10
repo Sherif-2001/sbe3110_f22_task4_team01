@@ -26,8 +26,8 @@ def resize_images(img1,img2):
 
     img1_resized = cv2.resize(img1, (500, 500))
     img2_resized = cv2.resize(img2, (500, 500))
-    cv2.imwrite("./static/images/re_image1.png", img1_resized)
-    cv2.imwrite("./static/images/re_image2.png", img2_resized)
+    cv2.imwrite("../static/images/re_image1.png", img1_resized)
+    cv2.imwrite("../static/images/re_image2.png", img2_resized)
     return img1_resized,img2_resized
 
 
