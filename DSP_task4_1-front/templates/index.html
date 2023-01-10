@@ -5,8 +5,11 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Document</title>
+  <title>Image Mixer</title>
+
   <link rel="stylesheet" href="../static/style/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/cropper/2.3.4/cropper.min.css'>
 </head>
 
 <form style="display: flex; flex: 1;" action="http://127.0.0.1:10000/" id="SubmitForm" method="post"
@@ -69,6 +72,15 @@
       </div>
 
     </div>
+    <!-- ------------------------ The Magnitude/Phase tools ----------------------- -->
+    <div style="display: flex;">
+      <input type="radio" id="MagnitudeBtn" name="SecondImageTools" value="Magnitude">
+      <label for="MagnitudeBtn">Magnitude</label><br>
+      <input type="radio" id="PhaseBtn" name="SecondImageTools" value="Phase" checked>
+      <label for="PhaseBtn">Phase</label>
+    </div>
+
+  </div>
 
     <!-- ----------------------- The Mixed Image Container -------------------- -->
     <div class="mixedContainer">
@@ -78,9 +90,9 @@
       </div>
     </div>
 
-  </body>
-</form>
-
-<script src="../static/script/main.js"></script>
+  <script src="../static/script/main.js"></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/cropperjs/0.8.1/cropper.min.js'></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+</body>
 
 </html>

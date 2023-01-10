@@ -1,80 +1,118 @@
-let FirstImageInput = document.getElementById("FirstImageInput");
-let SecondImageInput = document.getElementById("SecondImageInput");
+const firstImageInput = document.getElementById("FirstImageInput");
+const secondImageInput = document.getElementById("SecondImageInput");
 
-let FirstImageBtn = document.getElementById("FirstImageBtn");
-let SecondImageBtn = document.getElementById("SecondImageBtn");
-let MixButton = document.getElementById("MixButton");
+const firstImage = document.getElementById("FirstImage");
+const secondImage = document.getElementById("SecondImage");
+const mixedImage = document.getElementById("MixedImage");
 
-let FirstImage = document.getElementById("FirstImage");
-let SecondImage = document.getElementById("SecondImage");
-let MixedImage = document.getElementById("MixedImage");
+const firstRadios = document.getElementsByName("FirstImageTools");
+const secondRadios = document.getElementsByName("SecondImageTools");
 
-let FirstTools = document.getElementsByName("FirstImageTools");
-let SecondTools = document.getElementsByName("SecondImageTools");
+const image1Container = document.getElementById("img1cont");
+const image2Container = document.getElementById("img2cont");
 
-form = document.getElementById("SubmitForm");
+const checkBox = document.getElementById("checkbox");
 
-FirstImageInput.addEventListener("change", function () {
+const image1MagPath = "../static/images/image1_mag.png?";
+const image1PhasePath = "../static/images/image1_phase.png?";
+
+const image2MagPath = "../static/images/image2_mag.png?";
+const image2PhasePath = "../static/images/image2_phase.png?";
+
+const imageMixedPath = "../static/images/image_mix.png?";
+
+let cropDimensions = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 1], [0]];
+
+firstImageInput.addEventListener("change", function () {
   let reader = new FileReader();
-  reader.addEventListener("load", () => {
-    FirstImage.src = reader.result;
-    FirstImage.style.display = "flex";
-    FirstTools[0].checked = true;
-  });
+  reader.onload = () => {
+    firstRadios[0].checked = true;
+    firstImage.src = reader.result;
+    makeCropper(0, image1Container, image1MagPath);
+  };
   reader.readAsDataURL(this.files[0]);
   FirstImageInput.removeEventListener();
 });
 
-SecondImageInput.addEventListener("change", function () {
+secondImageInput.addEventListener("change", function () {
   let reader = new FileReader();
-  reader.addEventListener("load", () => {
-    SecondImage.src = reader.result;
-    SecondImage.style.display = `flex`;
-    SecondTools[0].checked = true;
-  });
+  reader.onload = () => {
+    secondRadios[1].checked = true;
+    secondImage.src = reader.result;
+    addImage(image2Container, image1PhasePath);
+    makeCropper(1, image2Container, image2PhasePath);
+  };
   reader.readAsDataURL(this.files[0]);
 }
 );
 
-for (radio in FirstTools) {
-  FirstTools[radio].onclick = function () {
-    if (this.value == "Original") {
-      FirstImage.src = "../static/images/image1.png";
-    } else if (this.value == "Magnitude") {
-      FirstImage.src = "../static/images/image1_mag.png";
-    } else if (this.value == "Phase") {
-      FirstImage.src = "../static/images/image1_phase.png";
+for (radio in firstRadios) {
+  firstRadios[radio].onclick = function () {
+    if (this.value == "Magnitude") {
+      cropDimensions[2][0] = 0;
+      makeCropper(0, image1Container, image1MagPath);
+    }
+    else if (this.value == "Phase") {
+      cropDimensions[2][0] = 1;
+      makeCropper(0, image1Container, image1PhasePath);
     }
   }
 }
 
-for (radio in SecondTools) {
-  SecondTools[radio].onclick = function () {
-    if (this.value == "Original") {
-      SecondImage.src = "../static/images/image2.png";
-    } else if (this.value == "Magnitude") {
-      SecondImage.src = "../static/images/image2_mag.png";
-    } else if (this.value == "Phase") {
-      SecondImage.src = "../static/images/image2_phase.png";
+for (radio in secondRadios) {
+  secondRadios[radio].onclick = function () {
+    if (this.value == "Magnitude") {
+      cropDimensions[2][1] = 0;
+      makeCropper(1, image2Container, image2MagPath);
+    }
+    else if (this.value == "Phase") {
+      cropDimensions[2][1] = 1;
+      makeCropper(0, image2Container, image2PhasePath);
     }
   }
 }
 
-MixButton.addEventListener("click", function () {
+function makeCropper(index, container, imageSrc) {
+  let img = document.createElement("img");
+  img.id = "image";
+  img.src = imageSrc + new Date().getTime();
+  container.innerHTML = "";
+  container.appendChild(img);
+  cropper = new Cropper(img, {
+    guides: false,
+    autoCrop: false,
+    crop(event) {
+      cropDimensions[index] = [Math.round(event.detail.x), Math.round(event.detail.y), Math.round(event.detail.width), Math.round(event.detail.height)];
+    },
+    cropend(event) {
+      loadDimensions();
+    }
+  });
+}
 
-  if (FirstTools[2].checked && SecondTools[2].checked) {
-    MixedImage.src = "../static/images/image_mixed_mag2_mag1.png";
-  } else if (FirstTools[2].checked && SecondTools[1].checked) {
-    MixedImage.src = "../static/images/image_mixed_mag1_p2.png";
-  } else if (FirstTools[1].checked && SecondTools[2].checked) {
-    MixedImage.src = "../static/images/image_mixed_mag2_p1.png";
-  } else if (FirstTools[1].checked && SecondTools[1].checked) {
-    MixedImage.src = "../static/images/image_mixed_p1_p2.png";
-  } else {
-    MixedImage.src = "../static/images/image_mixed_mag2_mag1.png";
+function addImage(container, imageSrc) {
+  let img = document.createElement("img");
+  img.id = "image";
+  img.src = imageSrc + new Date().getTime();
+  container.innerHTML = "";
+  container.appendChild(img);
+}
+
+function LoadImage(image, index) {
+  const xhttp = new XMLHttpRequest();
+  xhttp.onload = function () {
+    console.log(this.responseText);
   }
-});
+  xhttp.open("POST", "/image/" + index, true);
+  xhttp.send(image);
+}
 
-form.addEventListener('submit', function (event) {
-  event.preventDefault();    // prevent page from refreshing
-});
+function loadDimensions() {
+  const xhttp = new XMLHttpRequest();
+  xhttp.onload = function () {
+    console.log(this.responseText);
+    mixedImage.src = imageMixedPath + new Date().getTime();
+  }
+  xhttp.open("POST", "/dimensions", true);
+  xhttp.send(cropDimensions);
+}
