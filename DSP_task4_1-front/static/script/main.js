@@ -31,7 +31,7 @@ firstImageInput.addEventListener("change", function () {
     makeCropper(0, image1Container, image1MagPath);
   };
   reader.readAsDataURL(this.files[0]);
-  FirstImageInput.removeEventListener();
+  LoadImage(this.files[0], 1)
 });
 
 secondImageInput.addEventListener("change", function () {
@@ -39,12 +39,16 @@ secondImageInput.addEventListener("change", function () {
   reader.onload = () => {
     secondRadios[1].checked = true;
     secondImage.src = reader.result;
-    addImage(image2Container, image1PhasePath);
     makeCropper(1, image2Container, image2PhasePath);
   };
   reader.readAsDataURL(this.files[0]);
+  LoadImage(this.files[0], 2)
 }
 );
+
+checkBox.addEventListener("change", () => {
+  cropDimensions[3] = checkBox.checked ? 1 : 0;
+})
 
 for (radio in firstRadios) {
   firstRadios[radio].onclick = function () {
@@ -88,14 +92,6 @@ function makeCropper(index, container, imageSrc) {
       loadDimensions();
     }
   });
-}
-
-function addImage(container, imageSrc) {
-  let img = document.createElement("img");
-  img.id = "image";
-  img.src = imageSrc + new Date().getTime();
-  container.innerHTML = "";
-  container.appendChild(img);
 }
 
 function LoadImage(image, index) {

@@ -5,72 +5,55 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Image Mixer</title>
+  <title>Document</title>
 
   <link rel="stylesheet" href="../static/style/style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/cropper/2.3.4/cropper.min.css'>
 </head>
 
-<form style="display: flex; flex: 1;" action="http://127.0.0.1:10000/" id="SubmitForm" method="post"
-  enctype="multipart/form-data">
-
-  <body>
-    <!-- ------------------------ The First Image Container ----------------------- -->
-    <div style="width: 25%; display: flex; flex-direction: column;">
-      <div class="container">
-        <label class="containerLabel">First image</label>
-        <div class="imageContainer">
-          <img id="FirstImage" class="Image" />
-        </div>
+<body>
+  <!-- ------------------------ The First Original Image Container ----------------------- -->
+  <div style="width: 30%; display: flex; flex-direction: column;">
+    <div class="container">
+      <label class="containerLabel">First image</label>
+      <div class="imageContainer">
+        <img id="FirstImage" class="Image" />
       </div>
-
-      <!-- ------------------------ The Second Image Container ---------------------- -->
-      <div class="container">
-        <label class="containerLabel">Second image</label>
-        <div class="imageContainer">
-          <img id="SecondImage" class="Image" />
-        </div>
-      </div>
+      <input id="FirstImageInput" name="input1" type="file" accept="image/*" hidden />
+      <label for="FirstImageInput" id="FirstImageBtn" class="ImageBtn">Upload Image 1</label>
     </div>
 
-    <!-- ------------------------ The First Image Tools ----------------------- -->
-    <div class="toolsBox" style="width: 25%;">
-      <label class="containerLabel">Tools Box</label>
+    <!-- ------------------------ The Second Original Image Container ---------------------- -->
+    <div class="container">
+      <label class="containerLabel">Second image</label>
       <div class="imageContainer">
-        <input id="FirstImageInput" name="input1" type="file" accept="image/*" style="display: none" />
-        <label for="FirstImageInput" id="FirstImageBtn" class="ImageBtn">Upload Image 1</label>
-        <div style="color: white;">
-          <p> Image Shown:</p>
-          <input type="radio" id="Original" name="FirstImageTools" value="Original" checked>
-          <label for="Original">Original</label><br>
-          <input type="radio" id="Phase" name="FirstImageTools" value="Phase">
-          <label for="Phase">Phase</label><br>
-          <input type="radio" id="Magnitude" name="FirstImageTools" value="Magnitude">
-          <label for="Magnitude">Magnitude</label>
-        </div>
+        <img id="SecondImage" class="Image" />
       </div>
-      <!-- ------------------------ The Mix Button ----------------------------- -->
+      <input id="SecondImageInput" name="input2" type="file" accept="image/*" hidden />
+      <label for="SecondImageInput" id="SecondImageBtn" class="ImageBtn">Upload Image 2</label>
+    </div>
+  </div>
 
-      <div class="imageContainer">
-        <button type="submit" form="SubmitForm" id="MixButton" class="MixButton">Mix Images</button>
-      </div>
-      <!-- ------------------------ The Second Image Tools ----------------------- -->
+  <!-- ------------------------ The First Image Magnitude/Phase ----------------------- -->
+  <div class="toolsBox" style="width: 30%;">
+    <label class="containerLabel">First Image Tools</label>
+    <div class="imageContainer">
+      <div id="img1cont"></div>
+    </div>
+    <!-- ------------------------ The Magnitude/Phase tools ----------------------- -->
+    <div style="display: flex;">
+      <input type="radio" id="Magnitude" name="FirstImageTools" value="Magnitude" checked>
+      <label for="Magnitude">Magnitude</label><br>
+      <input type="radio" id="Phase" name="FirstImageTools" value="Phase">
+      <label for="Phase">Phase</label>
 
-      <div class="imageContainer">
-        <input id="SecondImageInput" name="input2" type="file" accept="image/*" style="display: none" />
-        <label for="SecondImageInput" id="SecondImageBtn" class="ImageBtn">Upload Image 2</label>
-        <div style="color: white;">
-          <p>Image Shown:</p>
-          <input type="radio" id="Original" name="SecondImageTools" value="Original" checked>
-          <label for="Original">Original</label><br>
-          <input type="radio" id="Phase" name="SecondImageTools" value="Phase">
-          <label for="Phase">Phase</label><br>
-          <input type="radio" id="Magnitude" name="SecondImageTools" value="Magnitude">
-          <label for="Magnitude">Magnitude</label>
-        </div>
-      </div>
+    </div>
+    <!-- ------------------------ The Second Image Magnitude/Phase ------------------- -->
 
+    <label class="containerLabel">Second Image Tools</label>
+    <div class="imageContainer">
+      <div id="img2cont"></div>
     </div>
     <!-- ------------------------ The Magnitude/Phase tools ----------------------- -->
     <div style="display: flex;">
@@ -82,17 +65,20 @@
 
   </div>
 
-    <!-- ----------------------- The Mixed Image Container -------------------- -->
-    <div class="mixedContainer">
-      <label class="containerLabel">Mixed image</label>
-      <div class="imageContainer">
-        <img id="MixedImage" class="Image" />
-      </div>
+  <!-- ----------------------- The Mixed Image Container -------------------- -->
+  <div class="mixedContainer">
+    <label class="containerLabel">Mixed image</label>
+    <div class="imageContainer">
+      <img id="MixedImage" class="Image" />
     </div>
+    <input type="checkbox" id="checkbox" name="outin">
+    <label for="checkbox">Outside</label>
+  </div>
 
-  <script src="../static/script/main.js"></script>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/cropperjs/0.8.1/cropper.min.js'></script>
+  <script src="../static/script/main.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
 </body>
 
 </html>
