@@ -26,7 +26,7 @@ based on fourier transform principles, it demonstrates the effects of high- and 
 
 ### Project Features
 
-In this web application you can
+In this web application, you can upload two images, apply a high- or low-pass filter to them, and then, using the selector, select the region you require.and also choose whether to take the outside or the inside of the coordinates.
 
 
 ### Project Structure
@@ -53,20 +53,15 @@ The Web Application is built using:
    - sklearn
    - cv2
    - PIL
-
 - Open Project Terminal & Run
 
-```
-pip install -r requirments.txt
-```
-
 2. Start Server by Running
-
 ```
 python app.py
 ```
-<br><lbr>
-###  Contributors <img  align="center" width= 70px height =55px src="https://media0.giphy.com/media/Xy702eMOiGGPzk4Zkd/giphy.gif?cid=ecf05e475vmf48k83bvzye3w2m2xl03iyem3tkuw2krpkb7k&rid=giphy.gif&ct=s"> 
+
+
+## <img  align="center" width= 70px height =55px src="https://media0.giphy.com/media/Xy702eMOiGGPzk4Zkd/giphy.gif?cid=ecf05e475vmf48k83bvzye3w2m2xl03iyem3tkuw2krpkb7k&rid=giphy.gif&ct=s"> Contributors  <a id ="Contributors"></a>
 
 <table align="center" >
   <tr>
