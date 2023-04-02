@@ -7,7 +7,7 @@
 - [Project Features](#project-features)
 - [Project full Demo](#project-full-demo)
 - [Project Structure](#project-structure)
-- [Team]([#Team])
+
 
  ### Introduction
 
@@ -66,9 +66,7 @@ pip install -r requirments.txt
 python app.py
 ```
 <br><lbr>
-###  Team
- <br><lbr>
-<img  align="center" width= 70px height =55px src="https://media0.giphy.com/media/Xy702eMOiGGPzk4Zkd/giphy.gif?cid=ecf05e475vmf48k83bvzye3w2m2xl03iyem3tkuw2krpkb7k&rid=giphy.gif&ct=s"> 
+###  Contributors <img  align="center" width= 70px height =55px src="https://media0.giphy.com/media/Xy702eMOiGGPzk4Zkd/giphy.gif?cid=ecf05e475vmf48k83bvzye3w2m2xl03iyem3tkuw2krpkb7k&rid=giphy.gif&ct=s"> 
 
 <table align="center" >
   <tr>
