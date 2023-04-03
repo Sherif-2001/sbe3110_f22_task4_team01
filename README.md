@@ -41,11 +41,13 @@ The Web Application is built using:
   - Flask (Python)
 
 ### Project full Demo 
-<p align="center">
-<img src="https://github.com/Sherif-2001/sbe3110_f22_task4_team01/blob/main/DSP_task4_1-front/static/images/final%20demo.gif" width="500" height="250"/>
-</p>
 
-<br></br>
+
+
+https://user-images.githubusercontent.com/85830264/229548106-d40ae9ea-0946-46d8-9f48-fb5afd09b00e.mp4
+
+
+
 ### Run the Project
 
 1. Install the following packages
