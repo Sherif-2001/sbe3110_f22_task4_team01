@@ -41,6 +41,9 @@ The Web Application is built using:
   - Flask (Python)
 
 ### Project full Demo 
+<p align="center">
+<img src="https://github.com/Sherif-2001/sbe3110_f22_task4_team01/blob/main/DSP_task4_1-front/static/images/Image_filter.gif" width="500" height="250"/>
+</p>
 
 <br></br>
 ### Run the Project
