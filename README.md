@@ -1,4 +1,4 @@
-# Image Filter 
+# Image Mixer 
 
 
 ## Table of contents:
