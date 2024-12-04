@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="style/style.css" />
+</head>
+
+<body>
+  <!-- ------------------------ The First Image Container ----------------------- -->
+  <div style="width: 25%; display: flex; flex-direction: column;">
+    <div class="container">
+      <label class="containerLabel">First image</label>
+      <div class="imageContainer">
+        <img id="FirstImage" class="Image" />
+      </div>
+    </div>
+
+    <!-- ------------------------ The Second Image Container ---------------------- -->
+    <div class="container">
+      <label class="containerLabel">Second image</label>
+      <div class="imageContainer">
+        <img id="SecondImage" class="Image" />
+      </div>
+    </div>
+  </div>
+
+  <!-- ------------------------ The First Image Tools ----------------------- -->
+  <div class="toolsBox" style="width: 25%;">
+    <div class="imageContainer">
+      <input id="FirstImageInput" type="file" accept="image/*" style="display: none" />
+      <label for="FirstImageInput" id="FirstImageBtn" class="ImageBtn">Upload Image 1</label>
+      <div style="color: white;">
+        <p> Image Shown:</p>
+        <input type="radio" id="Original" name="FirstImageTools" value="Original" checked>
+        <label for="Original">Original</label><br>
+        <input type="radio" id="Phase" name="FirstImageTools" value="Phase">
+        <label for="Phase">Phase</label><br>
+        <input type="radio" id="Magnitude" name="FirstImageTools" value="Magnitude">
+        <label for="Magnitude">Magnitude</label>
+      </div>
+    </div>
+    <!-- ------------------------ The Mix Button ----------------------------- -->
+
+    <div class="imageContainer">
+      <input id="MixInput" type="file" accept="image/*" style="display: none" />
+      <label for="MixInput" id="MixBtn" class="ImageBtn">Mix It</label>
+    </div>
+    <!-- ------------------------ The Second Image Tools ----------------------- -->
+
+    <div class="imageContainer">
+      <input id="SecondImageInput" type="file" accept="image/*" style="display: none" />
+      <label for="SecondImageInput" id="SecondImageBtn" class="ImageBtn">Upload Image 2</label>
+      <div style="color: white;">
+        <p>Image Shown:</p>
+        <input type="radio" id="Original" name="SecondImageTools" value="Original" checked>
+        <label for="Original">Original</label><br>
+        <input type="radio" id="Phase" name="SecondImageTools" value="Phase">
+        <label for="Phase">Phase</label><br>
+        <input type="radio" id="Magnitude" name="SecondImageTools" value="Magnitude">
+        <label for="Magnitude">Magnitude</label>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ----------------------- The Mixed Image Container -------------------- -->
+  <div class="mixedContainer">
+    <label class="containerLabel">Mixed image</label>
+    <div class="imageContainer">
+      <img class="Image" />
+    </div>
+  </div>
+
+
+  <script src="script/main.js"></script>
+</body>
+
+</html>

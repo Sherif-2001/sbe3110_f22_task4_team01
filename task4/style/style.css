@@ -1,0 +1,92 @@
+* {
+  padding: 0px;
+  margin: 5px;
+  gap: 1%;
+  padding-left: 5px;
+  padding-top: 3px;
+}
+
+body {
+  display: flex;
+  flex-direction: row;
+  height: 95vh;
+  background-color: white;
+}
+
+.container {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 50%;
+}
+
+.containerLabel {
+  padding: 0px 8px;
+  border-radius: 20px;
+  font-size: 30px;
+  font-weight: bold;
+  /* background-color:rgba(132,150,173,0.18) ; */
+  background-color: rgba(76, 148, 243, 0.3);
+  color: black;
+}
+
+.imageContainer {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 5%;
+  background-color: rgb(25, 5, 97);
+}
+
+.ImageBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  font-size: 20px;
+  font-weight: bold;
+  color: #fff;
+  background-color: rgb(60, 43, 200); /*   rgb(138, 43, 226);*/
+  padding: 8px;
+  border-radius: 20px;
+}
+
+.ImageBtn:hover {
+  opacity: 60%;
+  cursor: pointer;
+}
+
+.Image {
+  display: none;
+  width: 100%;
+  height: 100%;
+  border-radius: 5%;
+  object-fit: contain;
+}
+
+input[type="radio"]:checked{
+  position: relative;
+  top: 5px;
+  margin: 0 5px 0 0;
+  width: 20px;
+  height: 20px;
+  accent-color: rgb(60, 43, 200);
+  }
+
+.toolsBox{
+    display: flex;
+    flex-direction: column;
+  }
+
+.mixedContainer{
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
